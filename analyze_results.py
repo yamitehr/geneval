@@ -346,10 +346,11 @@ def calculate_segmentation_stats(results: List[Dict],
                 stats['by_century'][century]['correct'] += 1
 
         # Update number of people stats
-        num_people_key = str(q_meta['num_people']) if q_meta['num_people'] > 0 else 'unknown'
-        stats['by_num_people'][num_people_key]['total'] += 1
-        if is_correct:
-            stats['by_num_people'][num_people_key]['correct'] += 1
+        if q_meta['num_people'] > 0:
+            num_people_key = str(q_meta['num_people'])
+            stats['by_num_people'][num_people_key]['total'] += 1
+            if is_correct:
+                stats['by_num_people'][num_people_key]['correct'] += 1
 
         # Update monarch involvement stats
         stats['by_monarch'][q_meta['monarch_involvement']]['total'] += 1
@@ -357,9 +358,10 @@ def calculate_segmentation_stats(results: List[Dict],
             stats['by_monarch'][q_meta['monarch_involvement']]['correct'] += 1
 
         # Update gender stats
-        stats['by_gender'][q_meta['gender_composition']]['total'] += 1
-        if is_correct:
-            stats['by_gender'][q_meta['gender_composition']]['correct'] += 1
+        if q_meta['gender_composition'] != 'unknown':
+            stats['by_gender'][q_meta['gender_composition']]['total'] += 1
+            if is_correct:
+                stats['by_gender'][q_meta['gender_composition']]['correct'] += 1
 
         # Update relationship type stats
         stats['by_relationship'][q_meta['relationship_type']]['total'] += 1
